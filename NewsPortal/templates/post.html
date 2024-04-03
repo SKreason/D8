@@ -1,0 +1,35 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Новость {{ Новость.id }}.
+{% endblock title %}
+
+{% block title1 %}
+Новость {{ Новость.id }}.
+{% endblock title1 %}
+
+{% block title2 %}
+{{ Новость.title|censor }}
+{% endblock title2 %}
+
+{% block content %}
+<br>
+{{ Новость.dateCreation|date:'d F Y' }}
+<hr>
+<br>
+{{ Новость.text|censor }}
+<br>
+<br>
+{% if perms.news.change_post or perm.news.delete_post %}
+{% if Новость.categoryType == "NW" %}
+<li><a href="{{Новость.id}}/edit"/>Редактировать новость</a></li>
+<li><a href="{{Новость.id}}/delete"/>Удалить новость</a></li>
+{% else %}
+<li ><a href="{{Новость.id}}/edit"/>Редактировать статью</a></li>
+<li ><a href="{{Новость.id}}/delete"/>Удалить статью</a></li>
+{% endif %}
+{% endif %}
+<br>
+{% endblock content %}

@@ -1,0 +1,10 @@
+Django~=5.0.3
+pip~=24.0
+asgiref~=3.8.0
+sqlparse~=0.4.4
+django-filter~=24.1
+django-crispy-forms~=2.1
+django-allauth~=0.61.1
+APScheduler~=3.10.4
+django-apscheduler~=0.6.2
+celery~=5.3.6

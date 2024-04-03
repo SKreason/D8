@@ -1,0 +1,35 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Новость {{ Пост.id }}.
+{% endblock title %}
+
+{% block title1 %}
+Новость {{ Пост.id }}.
+{% endblock title1 %}
+
+{% block title2 %}
+Удаление публикации
+{% endblock title2 %}
+
+{% block content %}
+<br>
+<h1></h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Удаляем пост?  <h4>"{{ Пост.title|censor }}"</h4></p>
+    <input type="submit" value="Delete" />
+</form>
+<br>
+Дата публикации: {{ Пост.dateCreation|date:'d F Y' }}
+<hr>
+<br>
+<h5>Текст публикации:</h5>
+<br>
+{{ Пост.text|censor }}
+<br>
+<br>
+{% endblock content %}

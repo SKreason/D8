@@ -1,0 +1,63 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+
+{% block title %}
+Публикации
+{% endblock title %}
+
+{% block title1 %}
+Публикации
+{% endblock title1 %}
+
+{% block title2 %}
+
+{% if Публикации %}
+<h1>Публикаций: {{ Публикации|length }}</h1>
+{% else %}
+<h1>Публикаций: нет! Заходите позднее!</h1>
+{% endif %}
+{% endblock title2 %}
+{% block content %}
+{% for Новость in Публикации %}
+<br>
+<hr>
+<br>
+<br>
+{{ Новость.dateCreation|date:'d F Y' }}
+{% if Новость.categoryType == "NW" %}
+<h4><a class="nav-link" href="/news/{{ Новость.id }}">{{ Новость.title|censor }}</a></h4>
+{% else %}
+<h4><a class="nav-link" href="/articles/{{ Новость.id }}">{{ Новость.title|censor }}</a></h4>
+{% endif %}
+<br>
+{{ Новость.text|censor|truncatechars:20 }}
+{% endfor %}
+{% endblock content %}
+{% block page %}
+
+{# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+{% endblock page %}
